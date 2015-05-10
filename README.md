@@ -18,7 +18,7 @@ php composer.phar require --prefer-dist nepster-web/yii2-basis-components "dev-m
 или добавьте
 
 ```
-"nepster-web/yii2-basis-components: "dev-master"
+"nepster-web/yii2-basis-components": "dev-master"
 ```
 
 в файл `composer.json` в секцию require.
