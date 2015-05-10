@@ -1,0 +1,25 @@
+{
+    "name": "nepster-web/yii2-basis-components",
+    "description": "Базовые поведения, хелперы и компоненты",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "yii 2", "helpers", "components", "extensions", "behaviors"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nepster",
+            "email": "nepsterxxx@mail.ru"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/nepster-web/yii2-basis-components/issues",
+        "source": "https://github.com/nepster-web/yii2-basis-components"
+    },
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "nepster\\basis\\": ""
+        }
+    }
+}
