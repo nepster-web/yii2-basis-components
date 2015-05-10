@@ -1,5 +1,7 @@
 # Базовые дополнения для Yii2
 
+Набор различных расширений, хелперов и компонентов, которые облегчают определенные задачи.
+
 > **NOTE:** Пакет находится в стадии разработки.
 
 
@@ -23,9 +25,7 @@ php composer.phar require --prefer-dist nepster-web/yii2-basis-components "dev-m
 
 
 
-# Документация
-
-Документация и подробное руководство для установки, настройки и работы с модулем пользователей.
+# Обзор
 
 ## Helpers
 
@@ -37,7 +37,7 @@ php composer.phar require --prefer-dist nepster-web/yii2-basis-components "dev-m
 
 ## Components
 
-- ---
+- В разработке...
 
 
 ## Лицензия
