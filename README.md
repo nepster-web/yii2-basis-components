@@ -29,15 +29,14 @@ php composer.phar require --prefer-dist nepster-web/yii2-basis-components "dev-m
 
 ## Helpers
 
-- [DateTimeHelper](helpers/DateTimeHelper.php) - для работы с датой и временем.
-- [RequestHelper](helpers/RequestHelper.php) - для работы с данными запросов пользователей.
-- [StatusHelper](helpers/StatusHelper.php) - для форматирования статусов.
-- [StringHelper](helpers/StringHelper.php) - для работы со строками.
+- [RequestHelper](docs/RequestHelper.md) - для работы с данными запросов пользователей.
+- [StatusHelper](docs/StatusHelper.md) - для форматирования статусов.
+- [StringHelper](docs/StringHelper.md) - для работы со строками.
 
 
 ## Components
 
-- В разработке...
+- [DateTimeFormatter](docs/DateTimeFormatter.md) - для работы с датой и временем.
 
 
 ## Лицензия
