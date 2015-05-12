@@ -56,3 +56,6 @@ Yii::$app->dateTime->toFullDateTime(time()) // 9 мая 2015, 15:00
 ```
 Yii::$app->dateTime->toShortDateTime(time()) // 9.05.2015, 15:00
 ```
+
+
+// TODO организовать документацию
