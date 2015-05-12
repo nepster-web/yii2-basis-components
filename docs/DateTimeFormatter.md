@@ -25,60 +25,34 @@
 
 **toTime($datetime)** - Возвращает время
 
-Пример:
 ```
-Yii::$app->dateTime->toTime(time())
+Yii::$app->dateTime->toTime(time()) // 15:00
 ```
-        
-Результат:
-15:00
 
-----------------------------
 
 **toFullDate($datetime)** - Возвращает полную строку даты
 
-Пример:
 ```
-Yii::$app->dateTime->toFullDate(time())
+Yii::$app->dateTime->toFullDate(time()) // 9 мая 2015
 ```
-        
-Результат:
-9 мая 2015
 
-----------------------------
 
 **toShortDate($datetime)** - Возвращает сокращенную строку даты
 
-Пример:
 ```
-Yii::$app->dateTime->toShortDate(time())
+Yii::$app->dateTime->toShortDate(time()) // 9.05.2015
 ```
-        
-Результат:
-9.05.2015
 
-----------------------------
 
 **toFullDateTime($datetime, $separator = null)** - Возвращает полную строку даты и времени
 
-Пример:
 ```
-Yii::$app->dateTime->toFullDateTime(time())
+Yii::$app->dateTime->toFullDateTime(time()) // 9 мая 2015, 15:00
 ```
-        
-Результат:
-9 мая 2015, 15:00
 
-----------------------------
 
 **toShortDateTime($datetime, $separator = null)** - Возвращает сокращенную строку даты и времени
 
-Пример:
 ```
-Yii::$app->dateTime->toShortDateTime(time())
+Yii::$app->dateTime->toShortDateTime(time()) // 9.05.2015, 15:00
 ```
-        
-Результат:
-9.05.2015, 15:00
-
-----------------------------
