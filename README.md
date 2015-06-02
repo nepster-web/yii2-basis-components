@@ -1,8 +1,9 @@
 # Базовые дополнения для Yii2
 
-Набор различных расширений, хелперов и компонентов, которые облегчают определенные задачи.
+Набор различных расширений, хелперов и компонентов, которые облегчают реализацию определенных задач.
 
 > **NOTE:** Пакет находится в стадии разработки.
+```Не рекомендован к использованию```
 
 
 ## Установка
@@ -24,19 +25,18 @@ php composer.phar require --prefer-dist nepster-web/yii2-basis-components "dev-m
 в файл `composer.json` в секцию require.
 
 
-
 # Обзор
-
-## Helpers
-
-- [RequestHelper](docs/RequestHelper.md) - для работы с данными запросов пользователей.
-- [StatusHelper](docs/StatusHelper.md) - для форматирования статусов.
-- [StringHelper](docs/StringHelper.md) - для работы со строками.
-
 
 ## Components
 
-- [DateTimeFormatter](docs/DateTimeFormatter.md) - для работы с датой и временем.
+- [BasisFormat](docs/BasisFormat.md) - организовывает единую точку доступа ко всем базовым расширениям.
+
+
+## Helpers
+
+- [DateTimeHelper](docs/DateTimeHelper.md) - хелпер для работы с датой и временем.
+- [StatusHelper](docs/StatusHelper.md) - форматирует статусы определенного формата.
+- [StringHelper](docs/StringHelper.md) - форматирует данные приобразуя их в строки.
 
 
 ## Лицензия

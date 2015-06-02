@@ -1,27 +1,36 @@
 <?php
 
-namespace nepster\basis\components;
+namespace nepster\basis\helpers;
 
 use \DateTime as DateTime;
-use yii\base\Component;
 use yii\i18n\Formatter;
 use Yii;
 
 /**
- * Компонент работает с датой и временем, преобразуя их в строки различных форматов
+ * Хелпер работает с датой и временем, преобразуя их в строки различных форматов
  *
- * //TODO проверить работу с time() и date()
- * //TODO организовать i18n, переводы
- * //TODO вывод дней
- * //TODO вывод месяцев
+ * DateTimeHelper::toTime($datetime) - Возвращает время
+ * DateTimeHelper::toFullDate($datetime) - Возвращает полную строку даты
+ * DateTimeHelper::toShortDate($datetime, $leadingZeros = true) - Возвращает сокращенную строку даты
+ * DateTimeHelper::toFullDateTime($datetime, $separator = null) - Возвращает полную строку даты и времени
+ * DateTimeHelper::toShortDateTime($datetime, $separator = null, $leadingZeros = true) - Возвращает сокращенную строку даты и времени
+ * DateTimeHelper::diffFullPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false) - Считает разницу между датами и возвращает полный период между этими датами
+ * DateTimeHelper::diffDaysPeriod($datetime1, $datetime2 = null, $showTimeUntilDay = true) - Считает разницу между датами и возвращает период состоящий из дней между этими датами
+ * DateTimeHelper::diffAgoPeriodRound($datetime1, $datetime2 = null, $reduce = false) - Считает разницу между датами и возвращает округленный период между этими датами в прошедшем времени
+ * DateTimeHelper::getDaysList() - Возвращает список дней недели
+ * DateTimeHelper::getMonthsList() - Возвращает список месяцев
+ * DateTimeHelper::getDiff($datetime1, $datetime2 = null) - Разница между датами
+ *
+ * //TODO вывод списка дней
+ * //TODO вывод списка месяцев
  *
  */
-class DateTimeFormatter extends Component
+class DateTimeHelper extends \nepster\basis\Basis
 {
     /**
      * @var
      */
-    public $dateToTimeSeparator = ', ';
+    public static $dateToTimeSeparator = ', ';
 
     /**
      * @var array
@@ -62,9 +71,9 @@ class DateTimeFormatter extends Component
      * @param $datetime
      * @return string
      */
-    public function toTime($datetime)
+    public static function toTime($datetime)
     {
-        $formatter = $this->getFormatter($datetime);
+        $formatter = self::getFormatter($datetime);
         return $formatter->asDate($datetime, 'k:mm');
     }
 
@@ -76,24 +85,26 @@ class DateTimeFormatter extends Component
      * @param $datetime
      * @return string
      */
-    public function toFullDate($datetime)
+    public static function toFullDate($datetime)
     {
-        $formatter = $this->getFormatter($datetime);
+        $formatter = self::getFormatter($datetime);
         return $formatter->asDate($datetime, 'd MMMM Y');
     }
 
     /**
      * Возвращает сокращенную строку даты
      *
-     * Например: 9.05.2015
+     * Например: 09.05.2015
      *
+     * @param bool $leadingZeros Ведущий нуль
      * @param $datetime
      * @return string
      */
-    public function toShortDate($datetime)
+    public static function toShortDate($datetime, $leadingZeros = true)
     {
-        $formatter = $this->getFormatter($datetime);
-        return $formatter->asDate($datetime, 'd.M.Y');
+        $formatter = self::getFormatter($datetime);
+        $format = $leadingZeros ? 'dd.MM.Y' : 'd.M.Y';
+        return $formatter->asDate($datetime, $format);
     }
 
     /**
@@ -105,13 +116,13 @@ class DateTimeFormatter extends Component
      * @param null $separator
      * @return mixed
      */
-    public function toFullDateTime($datetime, $separator = null)
+    public static function toFullDateTime($datetime, $separator = null)
     {
         if ($separator === null) {
-            $separator = $this->dateToTimeSeparator;
+            $separator = self::$dateToTimeSeparator;
         }
 
-        $formatter = $this->getFormatter($datetime);
+        $formatter = self::getFormatter($datetime);
         return str_replace('%', $separator, $formatter->asDate($datetime, 'd MMMM Y%k:mm'));
     }
 
@@ -121,17 +132,18 @@ class DateTimeFormatter extends Component
      * Например: 9.05.2015, 15:00
      *
      * @param $datetime
+     * @param bool $leadingZeros Ведущий нуль
      * @param null $separator
      * @return mixed
      */
-    public function toShortDateTime($datetime, $separator = null)
+    public static function toShortDateTime($datetime, $separator = null, $leadingZeros = true)
     {
         if ($separator === null) {
-            $separator = $this->dateToTimeSeparator;
+            $separator = self::$dateToTimeSeparator;
         }
-
-        $formatter = $this->getFormatter($datetime);
-        return str_replace('%', $separator, $formatter->asDate($datetime, 'd.M.Y%k:mm'));
+        $formatter = self::getFormatter($datetime);
+        $format = $leadingZeros ? 'dd.MM.Y%k:mm' : 'd.M.Y%k:mm';
+        return str_replace('%', $separator, $formatter->asDate($datetime, $format));
     }
 
     /**
@@ -152,57 +164,59 @@ class DateTimeFormatter extends Component
      * @param bool $showSeconds - Показывать секунды
      * @return string
      */
-    public function diffFullPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false)
+    public static function diffFullPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false)
     {
+        static::initI18N();
+
         $interval = self::getDiff($datetime1, $datetime2);
 
         $result = [];
 
         if ($interval->y > 0) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} г.', ['n' => $interval->y]);
+                $result[] = Yii::t('basis', '{n} y.', ['n' => $interval->y]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# год} few{# года} many{# лет} other{# лет} }', ['n' => $interval->y]);
+                $result[] = Yii::t('basis', '{n, plural, one{# year} other{# years}}', ['n' => $interval->y]);
             }
         }
 
         if ($interval->m > 0) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} м.', ['n' => $interval->m]);
+                $result[] = Yii::t('basis', '{n} m.', ['n' => $interval->m]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# месяц} few{# месяца} many{# месяцев} other{# месяцев} }', ['n' => $interval->m]);
+                $result[] = Yii::t('basis', '{n, plural, one{# month} other{# months}}', ['n' => $interval->m]);
             }
         }
 
         if ($interval->d > 0) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} д.', ['n' => $interval->d]);
+                $result[] = Yii::t('basis', '{n} d.', ['n' => $interval->d]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# день} few{# дня} many{# дней} other{# дней} }', ['n' => $interval->d]);
+                $result[] = Yii::t('basis', '{n, plural, one{# day} other{# days}}', ['n' => $interval->d]);
             }
         }
 
         if ($interval->h > 0) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} ч.', ['n' => $interval->h]);
+                $result[] = Yii::t('basis', '{n} h.', ['n' => $interval->h]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# час} few{# часа} many{# часов} other{# часов} }', ['n' => $interval->h]);
+                $result[] = Yii::t('basis', '{n, plural, one{# hour} other{# hours}}', ['n' => $interval->h]);
             }
         }
 
         if ($interval->i > 0) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} м.', ['n' => $interval->i]);
+                $result[] = Yii::t('basis', '{n} min.', ['n' => $interval->i]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# минута} few{# минуты} many{# минут} other{# минут} }', ['n' => $interval->i]);
+                $result[] = Yii::t('basis', '{n, plural, one{# minute} other{# minutes}}', ['n' => $interval->i]);
             }
         }
 
         if ($interval->i <= 0 && $interval->s > 0 || $showSeconds) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} с.', ['n' => $interval->s]);
+                $result[] = Yii::t('basis', '{n} sec.', ['n' => $interval->s]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# секунда} few{# секунды} many{# секунд} other{# секунд} }', ['n' => $interval->s]);
+                $result[] = Yii::t('basis', '{n, plural, one{# second} other{# seconds}}', ['n' => $interval->s]);
             }
         }
 
@@ -226,33 +240,33 @@ class DateTimeFormatter extends Component
      * @param bool $showTimeUntilDay - Показывать время, когда дата менее одного дня
      * @return string
      */
-    public function diffDaysPeriod($datetime1, $datetime2 = null, $showTimeUntilDay = true)
+    public static function diffDaysPeriod($datetime1, $datetime2 = null, $showTimeUntilDay = true)
     {
         $interval = self::getDiff($datetime1, $datetime2);
 
         if ($interval->days > 0) {
-            return Yii::t('app', '{n, plural, one{# день} few{# дня} many{# дней} other{# дней} }', ['n' => $interval->days]);
+            return Yii::t('basis', '{n, plural, one{# day} other{# days}}', ['n' => $interval->d]);
         }
 
         if ($showTimeUntilDay) {
             $result = [];
 
             if ($interval->h > 0) {
-                $result[] = Yii::t('app', '{n, plural, one{# час} few{# часа} many{# часов} other{# часов} }', ['n' => $interval->h]);
+                $result[] = Yii::t('basis', '{n, plural, one{# hour} other{# hours}}', ['n' => $interval->h]);
             }
 
             if ($interval->i > 0) {
-                $result[] = Yii::t('app', '{n, plural, one{# минута} few{# минуты} many{# минут} other{# минут} }', ['n' => $interval->i]);
+                $result[] = Yii::t('basis', '{n, plural, one{# minute} other{# minutes}}', ['n' => $interval->i]);
             }
 
             if ($interval->i <= 0 && $interval->s) {
-                $result[] = Yii::t('app', '{n, plural, one{# секунда} few{# секунды} many{# секунд} other{# секунд} }', ['n' => $interval->s]);
+                $result[] = Yii::t('basis', '{n, plural, one{# second} other{# seconds}}', ['n' => $interval->s]);
             }
 
             return implode(' ', $result);
         }
 
-        return Yii::t('app', '{n, plural, one{# день} few{# дня} many{# дней} other{# дней} }', ['n' => 1]);
+        return Yii::t('basis', '{n, plural, one{# day} other{# days}}', ['n' => 1]);
     }
 
     /**
@@ -273,7 +287,7 @@ class DateTimeFormatter extends Component
      * @param bool $showSeconds
      * @return string
      */
-    public function diffAgoPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false)
+    public static function diffAgoPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false)
     {
         $interval = self::getDiff($datetime1, $datetime2);
 
@@ -281,57 +295,57 @@ class DateTimeFormatter extends Component
 
         if ($interval->y > 0) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} г.', ['n' => $interval->y]);
+                $result[] = Yii::t('basis', '{n} y.', ['n' => $interval->y]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# год} few{# года} many{# лет} other{# лет} }', ['n' => $interval->y]);
+                $result[] = Yii::t('basis', '{n, plural, one{# year} other{# years}}', ['n' => $interval->y]);
             }
         }
 
         if ($interval->m > 0) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} м.', ['n' => $interval->m]);
+                $result[] = Yii::t('basis', '{n} m.', ['n' => $interval->m]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# месяц} few{# месяца} many{# месяцев} other{# месяцев} }', ['n' => $interval->m]);
+                $result[] = Yii::t('basis', '{n, plural, one{# month} other{# months}}', ['n' => $interval->m]);
             }
         }
 
         if ($interval->d > 0) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} д.', ['n' => $interval->d]);
+                $result[] = Yii::t('basis', '{n} d.', ['n' => $interval->d]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# день} few{# дня} many{# дней} other{# дней} }', ['n' => $interval->d]);
+                $result[] = Yii::t('basis', '{n, plural, one{# day} other{# days}}', ['n' => $interval->d]);
             }
         }
 
         if ($interval->h > 0) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} ч.', ['n' => $interval->h]);
+                $result[] = Yii::t('basis', '{n} h.', ['n' => $interval->h]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# час} few{# часа} many{# часов} other{# часов} }', ['n' => $interval->h]);
+                $result[] = Yii::t('basis', '{n, plural, one{# hour} other{# hours}}', ['n' => $interval->h]);
             }
         }
 
         if ($interval->i > 0) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} м.', ['n' => $interval->i]);
+                $result[] = Yii::t('basis', '{n} min.', ['n' => $interval->i]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# минуту} few{# минуты} many{# минут} other{# минут} }', ['n' => $interval->i]);
+                $result[] = Yii::t('basis', '{n, plural, one{# minute} other{# minutes}} ago', ['n' => $interval->i]);
             }
         }
 
         if ($interval->i <= 0 && $interval->s > 0 || $showSeconds) {
             if ($reduce) {
-                $result[] = Yii::t('app', '{n} с.', ['n' => $interval->s]);
+                $result[] = Yii::t('basis', '{n} sec.', ['n' => $interval->s]);
             } else {
-                $result[] = Yii::t('app', '{n, plural, one{# секунда} few{# секунды} many{# секунд} other{# секунд} }', ['n' => $interval->s]);
+                $result[] = Yii::t('basis', '{n, plural, one{# second} other{# seconds}} ago', ['n' => $interval->s]);
             }
         }
 
         if (isset($result[count($result) - 2])) {
-            array_splice($result, count($result) - 1, 0, 'и');
+            array_splice($result, count($result) - 1, 0, Yii::t('basis', 'and'));
         }
 
-        return implode(' ', $result) . ' ' . Yii::t('app', 'назад');
+        return implode(' ', $result) . ' ' . Yii::t('basis', 'ago');
     }
 
     /**
@@ -351,7 +365,7 @@ class DateTimeFormatter extends Component
      * @param bool $reduce
      * @return string
      */
-    public function diffAgoPeriodRound($datetime1, $datetime2 = null, $reduce = false)
+    public static function diffAgoPeriodRound($datetime1, $datetime2 = null, $reduce = false)
     {
         $interval = self::getDiff($datetime1, $datetime2);
 
@@ -359,43 +373,43 @@ class DateTimeFormatter extends Component
 
         if ($interval->y > 0) {
             if ($reduce) {
-                $result = Yii::t('app', '{n} г.', ['n' => $interval->y]);
+                $result = Yii::t('basis', '{n} y.', ['n' => $interval->y]);
             } else {
-                $result = Yii::t('app', '{n, plural, one{# год} few{# года} many{# лет} other{# лет} }', ['n' => $interval->y]);
+                $result = Yii::t('basis', '{n, plural, one{# year} other{# years}}', ['n' => $interval->y]);
             }
         } else if ($interval->m > 0) {
             if ($reduce) {
-                $result = Yii::t('app', '{n} м.', ['n' => $interval->m]);
+                $result = Yii::t('basis', '{n} m.', ['n' => $interval->m]);
             } else {
-                $result = Yii::t('app', '{n, plural, one{# месяц} few{# месяца} many{# месяцев} other{# месяцев} }', ['n' => $interval->m]);
+                $result = Yii::t('basis', '{n, plural, one{# month} other{# months}}', ['n' => $interval->m]);
             }
         } else if ($interval->d > 0) {
             if ($reduce) {
-                $result = Yii::t('app', '{n} д.', ['n' => $interval->d]);
+                $result = Yii::t('basis', '{n} d.', ['n' => $interval->d]);
             } else {
-                $result = Yii::t('app', '{n, plural, one{# день} few{# дня} many{# дней} other{# дней} }', ['n' => $interval->d]);
+                $result = Yii::t('basis', '{n, plural, one{# day} other{# days}}', ['n' => $interval->d]);
             }
         } else if ($interval->h > 0) {
             if ($reduce) {
-                $result = Yii::t('app', '{n} ч.', ['n' => $interval->h]);
+                $result = Yii::t('basis', '{n} h.', ['n' => $interval->h]);
             } else {
-                $result = Yii::t('app', '{n, plural, one{# час} few{# часа} many{# часов} other{# часов} }', ['n' => $interval->h]);
+                $result = Yii::t('basis', '{n, plural, one{# hour} other{# hours}}', ['n' => $interval->h]);
             }
         } else if ($interval->i > 0) {
             if ($reduce) {
-                $result = Yii::t('app', '{n} м.', ['n' => $interval->i]);
+                $result = Yii::t('basis', '{n} min.', ['n' => $interval->i]);
             } else {
-                $result = Yii::t('app', '{n, plural, one{# минуту} few{# минуты} many{# минут} other{# минут} }', ['n' => $interval->i]);
+                $result = Yii::t('basis', '{n, plural, one{# minute} other{# minutes}} ago', ['n' => $interval->i]);
             }
         } else if ($interval->i <= 0 && $interval->s > 0) {
             if ($reduce) {
-                $result = Yii::t('app', '{n} с.', ['n' => $interval->s]);
+                $result = Yii::t('basis', '{n} sec.', ['n' => $interval->s]);
             } else {
-                $result = Yii::t('app', '{n, plural, one{# секунда} few{# секунды} many{# секунд} other{# секунд} }', ['n' => $interval->s]);
+                $result = Yii::t('basis', '{n, plural, one{# second} other{# seconds}} ago', ['n' => $interval->s]);
             }
         }
 
-        return $result . ' ' . Yii::t('app', 'назад');
+        return $result . ' ' . Yii::t('basis', 'ago');
     }
 
     /**
@@ -403,7 +417,7 @@ class DateTimeFormatter extends Component
      *
      * @return array
      */
-    public function getDaysList()
+    public static function getDaysList()
     {
         $result = [];
 
@@ -421,7 +435,7 @@ class DateTimeFormatter extends Component
      *
      * @return array
      */
-    public function getMonthsList()
+    public static function getMonthsList()
     {
         $result = [];
 
@@ -441,12 +455,24 @@ class DateTimeFormatter extends Component
      * @param null $datetime2
      * @return bool|\DateInterval
      */
-    public function getDiff($datetime1, $datetime2 = null)
+    public static function getDiff($datetime1, $datetime2 = null)
     {
-        $_datetime1 = new \DateTime();
+        if (!$datetime2) {
+            $datetime2 = time();
+        }
+
+        if (!is_numeric($datetime1)) {
+            $datetime1 = strtotime($datetime1);
+        }
+
+        if (!is_numeric($datetime2)) {
+            $datetime2 = strtotime($datetime2);
+        }
+
+        $_datetime1 = new DateTime();
         $_datetime1->setTimestamp($datetime1);
 
-        $_datetime2 = new \DateTime();
+        $_datetime2 = new DateTime();
         $_datetime2->setTimestamp($datetime2);
 
         $interval = $_datetime1->diff($_datetime2);
@@ -460,7 +486,7 @@ class DateTimeFormatter extends Component
      * @param $datetime
      * @return Formatter
      */
-    private function getFormatter($datetime)
+    private static function getFormatter($datetime)
     {
         $formatter = new Formatter();
 

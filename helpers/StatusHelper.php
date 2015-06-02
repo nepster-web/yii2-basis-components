@@ -11,29 +11,34 @@ use yii;
  *
  * Пример массива статусов:
  *
- *   public static function getUserTypeArray($id = null)
+ *   public static function getUserTypeArray()
  *   {
  *      return [
  *          self::WANT_RENT => [
  *              'label' => 'Хочу снять',
- *              'color' => 'green',
+ *              'style' => 'color: red',
  *          ],
  *          self::MEDIATOR => [
  *              'label' => 'Посредник',
- *              'color' => 'green',
+ *              'style' => 'color: green',
  *          ],
  *          self::OWNER => [
  *              'label' => 'Собственник',
- *              'color' => 'green',
+ *              'style' => 'color: blue',
  *          ],
  *          self::AGENCY => [
  *              'label' => 'Агенство',
- *              'color' => 'green',
+ *              'style' => 'color: orange',
  *          ],
  *      ];
  *   }
+ *
+ * StatusHelper::getList(array $items) - Возвращает массив статусов в формате: ключ-значение
+ * StatusHelper::getItem(array $statuses, $item) - Рендер элемента
+ * StatusHelper::booleanString($bool, $reverse = false, $options = []) - Возвращает строку да или нет
+ * StatusHelper::booleanArray($reverse = false) - Возвращает массив да или нет
  */
-class StatusHelper
+class StatusHelper extends \nepster\basis\Basis
 {
     /**
      * Возвращает массив статусов в формате: ключ - значение
@@ -53,19 +58,17 @@ class StatusHelper
      *
      * @param array $statuses
      * @param $item
-     * @param array $options
      * @return false|string
      */
-    public static function getItem(array $statuses, $item, $options = [])
+    public static function getItem(array $statuses, $item)
     {
         if (!isset($statuses[$item])) {
             return false;
         }
 
         $label = null;
-        $style = null;
 
-        if (!is_array($statuses[$item]) || !$statuses[$item] || !isset($statuses[$item]['label'])) {
+        if (!is_array($statuses[$item]) || !isset($statuses[$item]['label'])) {
             return false;
         }
 
@@ -73,17 +76,9 @@ class StatusHelper
             $label = $statuses[$item]['label'];
         }
 
-        ///TODO: добавить возможность поддержки всех свойств
+        unset($statuses[$item]['label']);
 
-        if ((isset($statuses[$item]['color']) && $statuses[$item]['color'])) {
-            $style .= 'color: ' . $statuses[$item]['color'];
-        }
-
-        $_options = array_merge($options, [
-            'style' => $style
-        ]);
-
-        return Html::tag('span', $label, $_options);
+        return Html::tag('span', $label, $statuses[$item]);
     }
 
     /**
@@ -91,23 +86,26 @@ class StatusHelper
      *
      * @param $bool
      * @param bool $reverse
+     * @param array $options
      * @return string
      */
-    public static function BooleanString($bool, $reverse = false)
+    public static function booleanString($bool, $reverse = false, $options = [])
     {
-        $yesColor = 'green';
-        $noColor = 'red';
+        $yes = ['style' => 'color: green'];
+        $no = ['style' => 'color: red'];
 
         if ($reverse) {
-            $yesColor = 'red';
-            $noColor = 'green';
+            $yes = ['style' => 'color: red'];
+            $no = ['style' => 'color: green'];
         }
 
         if ($bool) {
-            return Html::tag('span', Yii::t('yii', 'Yes'), ['style' => 'color:' . $yesColor]);
+            $options = array_merge($options, $yes);
+            return Html::tag('span', Yii::t('yii', 'Yes'), $options);
         }
 
-        return Html::tag('span', Yii::t('yii', 'No'), ['style' => 'color:' . $noColor]);
+        $options = array_merge($options, $no);
+        return Html::tag('span', Yii::t('yii', 'No'), $options);
     }
 
     /**
@@ -116,7 +114,7 @@ class StatusHelper
      * @param bool $reverse
      * @return string
      */
-    public static function BooleanArray($reverse = false)
+    public static function booleanArray($reverse = false)
     {
         if ($reverse) {
             return [
