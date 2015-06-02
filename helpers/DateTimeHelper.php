@@ -242,6 +242,8 @@ class DateTimeHelper extends \nepster\basis\Basis
      */
     public static function diffDaysPeriod($datetime1, $datetime2 = null, $showTimeUntilDay = true)
     {
+        static::initI18N();
+
         $interval = self::getDiff($datetime1, $datetime2);
 
         if ($interval->days > 0) {
@@ -289,6 +291,8 @@ class DateTimeHelper extends \nepster\basis\Basis
      */
     public static function diffAgoPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false)
     {
+        static::initI18N();
+
         $interval = self::getDiff($datetime1, $datetime2);
 
         $result = [];
@@ -367,6 +371,8 @@ class DateTimeHelper extends \nepster\basis\Basis
      */
     public static function diffAgoPeriodRound($datetime1, $datetime2 = null, $reduce = false)
     {
+        static::initI18N();
+
         $interval = self::getDiff($datetime1, $datetime2);
 
         $result = [];
