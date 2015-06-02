@@ -40,7 +40,7 @@ Yii::$app->dateTime->toFullDate(time()) // 9 мая 2015
 **toShortDate($datetime)** - Возвращает сокращенную строку даты
 
 ```
-Yii::$app->dateTime->toShortDate(time()) // 9.05.2015
+Yii::$app->dateTime->toShortDate(time()) // 9.5.2015
 ```
 
 
@@ -54,7 +54,7 @@ Yii::$app->dateTime->toFullDateTime(time()) // 9 мая 2015, 15:00
 **toShortDateTime($datetime, $separator = null)** - Возвращает сокращенную строку даты и времени
 
 ```
-Yii::$app->dateTime->toShortDateTime(time()) // 9.05.2015, 15:00
+Yii::$app->dateTime->toShortDateTime(time()) // 9.5.2015, 15:00
 ```
 
 

@@ -73,6 +73,8 @@ class StatusHelper
             $label = $statuses[$item]['label'];
         }
 
+        ///TODO: добавить возможность поддержки всех свойств
+
         if ((isset($statuses[$item]['color']) && $statuses[$item]['color'])) {
             $style .= 'color: ' . $statuses[$item]['color'];
         }
@@ -91,7 +93,7 @@ class StatusHelper
      * @param bool $reverse
      * @return string
      */
-    public static function yesNoString($bool, $reverse = false)
+    public static function BooleanString($bool, $reverse = false)
     {
         $yesColor = 'green';
         $noColor = 'red';
@@ -114,7 +116,7 @@ class StatusHelper
      * @param bool $reverse
      * @return string
      */
-    public static function yesNoArray($reverse = false)
+    public static function BooleanArray($reverse = false)
     {
         if ($reverse) {
             return [

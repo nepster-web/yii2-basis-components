@@ -12,6 +12,8 @@ use Yii;
  *
  * //TODO проверить работу с time() и date()
  * //TODO организовать i18n, переводы
+ * //TODO вывод дней
+ * //TODO вывод месяцев
  *
  */
 class DateTimeFormatter extends Component
@@ -91,7 +93,7 @@ class DateTimeFormatter extends Component
     public function toShortDate($datetime)
     {
         $formatter = $this->getFormatter($datetime);
-        return $formatter->asDate($datetime, 'd.MM.Y');
+        return $formatter->asDate($datetime, 'd.M.Y');
     }
 
     /**
@@ -129,7 +131,7 @@ class DateTimeFormatter extends Component
         }
 
         $formatter = $this->getFormatter($datetime);
-        return str_replace('%', $separator, $formatter->asDate($datetime, 'd.MM.Y%k:mm'));
+        return str_replace('%', $separator, $formatter->asDate($datetime, 'd.M.Y%k:mm'));
     }
 
     /**
