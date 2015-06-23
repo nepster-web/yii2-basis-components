@@ -50,11 +50,11 @@ StatusHelper::getItem($statuses, $item)
     
     
 * ``StatusHelper::getItem(array $statuses, $item)``: Рендер элемента.
-    <br/>Пример: <span style="color: green">Посредник</span>
+    <br/>Пример: ```<span style="color: green">Посредник</span>```
     
     
 * ``StatusHelper::booleanString($bool, $reverse = false, $options = [])``: Возвращает строку да или нет.
-    <br/>Пример: <span style="color: green">Да</span>
+    <br/>Пример: ```<span style="color: green">Да</span>```
     
     
 * ``StatusHelper::booleanArray($reverse = false)``: Возвращает массив да или нет.
