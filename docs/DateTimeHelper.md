@@ -9,6 +9,10 @@
 Например:
 
 ```
+use nepster\basis\helpers\DateTimeHelper;
+```
+
+```
 DateTimeHelper::diffFullPeriod('2015-08-01 15:00:00', '2015-08-01 17:50:11') // 2 часа 50 минут
 DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 минут
 ```
@@ -70,3 +74,13 @@ DateTimeHelper::getMonthsList()
 ```
 DateTimeHelper::getDiff($datetime1, $datetime2 = null)
 ```
+
+
+
+
+| Метод                                                         | Пример                  | Описание                                        |
+| :-------------------------------------------------------------|:------------------------|:------------------------------------------------|
+| DateTimeHelper::toTime($datetime)                             | 12:59                   | Возвращает время                                |
+| DateTimeHelper::toFullDate($datetime)                         | 23 июня 2015            | Возвращает полную строку даты                   |
+| DateTimeHelper::toShortDate($datetime, $leadingZeros = true)  | 23.06.2015              | Возвращает сокращенную строку даты              |
+| DateTimeHelper::toFullDateTime($datetime, $separator = null)  | 23 июня 2015, 12:59     | Возвращает полную строку даты и времени         |
