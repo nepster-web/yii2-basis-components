@@ -6,7 +6,7 @@
 > **ВНИМАНИЕ:** В качестве параметра $datetime можно передавать как DateTime формат так и UNIX Timestamp формат.
 
 
-Например:
+**Пример:**
 
 ```
 use nepster\basis\helpers\DateTimeHelper;
@@ -20,25 +20,6 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
 
 # Методы
 
-Возвращает время
-```
-DateTimeHelper::toTime($datetime)
-```
-
-Возвращает полную строку даты
-```
-DateTimeHelper::toFullDate($datetime)
-```
-
-Возвращает сокращенную строку даты
-```
-DateTimeHelper::toShortDate($datetime, $leadingZeros = true)
-```
-
-Возвращает полную строку даты и времени
-```
-DateTimeHelper::toFullDateTime($datetime, $separator = null)
-```
 
 Возвращает сокращенную строку даты и времени
 ```
@@ -78,9 +59,34 @@ DateTimeHelper::getDiff($datetime1, $datetime2 = null)
 
 
 
-| Метод                                                         | Пример                  | Описание                                        |
-| :-------------------------------------------------------------|:------------------------|:------------------------------------------------|
-| DateTimeHelper::toTime($datetime)                             | 12:59                   | Возвращает время                                |
-| DateTimeHelper::toFullDate($datetime)                         | 23 июня 2015            | Возвращает полную строку даты                   |
-| DateTimeHelper::toShortDate($datetime, $leadingZeros = true)  | 23.06.2015              | Возвращает сокращенную строку даты              |
-| DateTimeHelper::toFullDateTime($datetime, $separator = null)  | 23 июня 2015, 12:59     | Возвращает полную строку даты и времени         |
+
+* ``DateTimeHelper::toTime($datetime) ``: Возвращает время.
+    Пример: 12:59
+    
+    
+* ``DateTimeHelper::toFullDate($datetime) ``: Возвращает полную строку даты.
+    Пример: 23 июня 2015
+    
+    
+* ``DateTimeHelper::toFullDate($datetime) ``: Возвращает сокращенную строку даты.
+    Пример: 23.06.2015
+
+
+
+  
+  
+  
+  
+
+| Метод                                                                                                | Пример                  | Описание                                        |
+| :----------------------------------------------------------------------------------------------------|:------------------------|:------------------------------------------------|
+| DateTimeHelper::toFullDate($datetime)                                                                |             |                    |
+| DateTimeHelper::toShortDate($datetime, $leadingZeros = true)                                         |               |               |
+| DateTimeHelper::toFullDateTime($datetime, $separator = null)                                         | 23 июня 2015, 12:59     | Возвращает полную строку даты и времени         |
+| DateTimeHelper::toShortDateTime($datetime, $separator = null, $leadingZeros = true)                  |      | Возвращает сокращенную строку даты и времени                       |
+| DateTimeHelper::diffFullPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false) |      | Считает разницу между датами и возвращает полный период между этими датами                    |
+| DateTimeHelper::diffDaysPeriod($datetime1, $datetime2 = null, $showTimeUntilDay = true)              |      | Считает разницу между датами и возвращает период состоящий из дней между этими датами         |
+| DateTimeHelper::diffAgoPeriodRound($datetime1, $datetime2 = null, $reduce = false)                   |      | Считает разницу между датами и возвращает округленный период между этими датами в прошедшем времени |
+| DateTimeHelper::getDaysList()                                                                        |      | Возвращает список дней недели |
+| DateTimeHelper::getMonthsList()                                                                      |      | Возвращает список месяцев     |
+| DateTimeHelper::getDiff($datetime1, $datetime2 = null)                                               |      | Разница между датами          |
