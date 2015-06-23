@@ -41,7 +41,8 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
     
     
 * ``DateTimeHelper::diffFullPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false)``: Считает разницу между датами и возвращает полный период между этими датами
-    <br/>Пример: 
+    <br/>Пример:
+    
 ⋅⋅⋅40 секунд
 ⋅⋅⋅19 минут
 ⋅⋅⋅1 час 9 минут
