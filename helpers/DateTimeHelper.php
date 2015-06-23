@@ -16,6 +16,7 @@ use Yii;
  * DateTimeHelper::toShortDateTime($datetime, $separator = null, $leadingZeros = true) - Возвращает сокращенную строку даты и времени
  * DateTimeHelper::diffFullPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false) - Считает разницу между датами и возвращает полный период между этими датами
  * DateTimeHelper::diffDaysPeriod($datetime1, $datetime2 = null, $showTimeUntilDay = true) - Считает разницу между датами и возвращает период состоящий из дней между этими датами
+ * DateTimeHelper::diffAgoPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false) Считает разницу между датами и возвращает полный период между этими датами в прошедшем времени
  * DateTimeHelper::diffAgoPeriodRound($datetime1, $datetime2 = null, $reduce = false) - Считает разницу между датами и возвращает округленный период между этими датами в прошедшем времени
  * DateTimeHelper::getDaysList() - Возвращает список дней недели
  * DateTimeHelper::getMonthsList() - Возвращает список месяцев
