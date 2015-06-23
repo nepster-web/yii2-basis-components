@@ -61,15 +61,15 @@ DateTimeHelper::getDiff($datetime1, $datetime2 = null)
 
 
 * ``DateTimeHelper::toTime($datetime) ``: Возвращает время.
-    Пример: 12:59
+    <br/>Пример: 12:59
     
     
 * ``DateTimeHelper::toFullDate($datetime) ``: Возвращает полную строку даты.
-    Пример: 23 июня 2015
+    <br/>Пример: 23 июня 2015
     
     
 * ``DateTimeHelper::toFullDate($datetime) ``: Возвращает сокращенную строку даты.
-    Пример: 23.06.2015
+    <br/>Пример: 23.06.2015
 
 
 
