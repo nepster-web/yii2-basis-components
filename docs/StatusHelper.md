@@ -3,7 +3,11 @@
 Хелпер **StatusHelper** работает с определенными массивами статусов.
 
 
-Например:
+**Пример**:
+
+```
+use nepster\basis\helpers\StatusHelper;
+```
 
 ```
     public static function getUserTypeArray()
@@ -36,28 +40,23 @@
 StatusHelper::getItem($statuses, $item)
 ```
 
-Исходя из вышеприведенного примера, вернет строку определенного цвета.
+Исходя из вышеприведенного примера, метод вернет строку определенного цвета.
 
 
-# Методы
+# Все методы
 
-Возвращает массив статусов в формате: ключ-значение
-```
-StatusHelper::getList(array $items)
-```
-
-Рендер элемента
-```
-StatusHelper::getItem(array $statuses, $item)
-```
-
-Возвращает строку да или нет
-```
-StatusHelper::booleanString($bool, $reverse = false, $options = [])
-```
-```
-
-Возвращает массив да или нет
-```
-StatusHelper::booleanArray($reverse = false)
-```
+* ``StatusHelper::getList(array $items)``: Возвращает массив статусов в формате: ключ-значение.
+    <br/>Пример: [1 => 'Хочу снять', 2 => 'Посредник', 3 => 'Собственник', 4 => 'Агенство']
+    
+    
+* ``StatusHelper::getItem(array $statuses, $item)``: Рендер элемента.
+    <br/>Пример: <span style="color: green">Посредник</span>
+    
+    
+* ``StatusHelper::booleanString($bool, $reverse = false, $options = [])``: Возвращает строку да или нет.
+    <br/>Пример: <span style="color: green">Да</span>
+    
+    
+* ``StatusHelper::booleanArray($reverse = false)``: Возвращает массив да или нет.
+    <br/>Пример: [0 => 'Нет', 1 => 'Да']
+    

@@ -18,7 +18,7 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
 ```
 
 
-# Методы
+# Все методы
 
 * ``DateTimeHelper::toTime($datetime)``: Возвращает время.
     <br/>Пример: 12:59
