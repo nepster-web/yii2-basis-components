@@ -97,12 +97,17 @@ return [
     'a day ago' => 'день назад',
     'a year ago' => 'год назад',
 
-    '{n, plural, one{# second} other{# seconds}}' => '{n, plural, one{# секунда} few{# секунды} many{# секунд} other{# секунд} }',
-    '{n, plural, one{# second} other{# seconds}} ago' => '{n, plural, one{# секундy} few{# секунды} many{# секунд} other{# секунд} }',
-    '{n, plural, one{# minute} other{# minutes}}' => '{n, plural, one{# минута} few{# минуты} many{# минут} other{# минут} }',
-    '{n, plural, one{# minute} other{# minutes}} ago' => '{n, plural, one{# минуту} few{# минуты} many{# минут} other{# минут} }',
-    '{n, plural, one{# hour} other{# hours}}' => '{n, plural, one{# час} few{# часа} many{# часов} other{# часов} }',
-    '{n, plural, one{# day} other{# days}}' => '{n, plural, one{# день} few{# дня} many{# дней} other{# дней} }',
-    '{n, plural, one{# month} other{# months}}' => '{n, plural, one{# месяц} few{# месяца} many{# месяцев} other{# месяцев} }',
-    '{n, plural, one{# year} other{# years}}' => '{n, plural, one{# год} few{# года} many{# лет} other{# лет} }',
+    '{n, plural, one{# second} other{# seconds}}' => '{n, plural, one{# секунда} few{# секунды} many{# секунд} other{# секунды} }',
+    '{n, plural, one{# second} other{# seconds}} ago' => '{n, plural, one{# секунду} few{# секунды} many{# секунд} other{# секунды} }',
+
+    '{n, plural, one{# minute} other{# minutes}}' => '{n, plural, one{# минута} few{# минуты} many{# минут} other{# минуты} }',
+    '{n, plural, one{# minute} other{# minutes}} ago' => '{n, plural, one{# минуту} few{# минуты} many{# минут} other{# минуты} }',
+
+    '{n, plural, one{# hour} other{# hours}}' => '{n, plural, one{# час} few{# часа} many{# часов} other{# часа} }',
+
+    '{n, plural, one{# day} other{# days}}' => '{n, plural, one{# день} few{# дня} many{# дней} other{# дня} }',
+
+    '{n, plural, one{# month} other{# months}}' => '{n, plural, one{# месяц} few{# месяца} many{# месяцев} other{# месяца} }',
+
+    '{n, plural, one{# year} other{# years}}' => '{n, plural, one{# год} few{# года} many{# лет} other{# года} }',
 ];

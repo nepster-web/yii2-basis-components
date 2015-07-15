@@ -416,6 +416,10 @@ class DateTimeHelper extends \nepster\basis\Basis
             }
         }
 
+        if (!$result) {
+            $result = Yii::t('basis', '{n, plural, one{# second} other{# seconds}} ago', ['n' => 1]);
+        }
+
         return $result . ' ' . Yii::t('basis', 'ago');
     }
 
