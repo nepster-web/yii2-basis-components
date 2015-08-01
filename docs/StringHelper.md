@@ -18,3 +18,7 @@ StringHelper::formatBytes(10000000) // 9.54 MB
     
 * ``StringHelper::generateRandomString($length = 8, $allowUppercase = true)``: Генерация случайной строки.
     <br/>Пример: CAPJzMMe
+
+
+* ``StringHelper::closeTags($html)``: Закрытие HTML тегов.
+    <br/>Пример: <p>Hello World</p>
