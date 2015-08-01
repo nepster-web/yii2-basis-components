@@ -9,6 +9,7 @@ use Yii;
  *
  * StringHelper::formatBytes($bytes, $precision = 2) - Форматирует и конвертирует кол-во байт, возвращает строку
  * StringHelper::generateRandomString($length = 8, $allowUppercase = true) - Генерация случайной строки
+ * StringHelper::closeTags($html) - Закрытие HTML тегов
  */
 class StringHelper extends \nepster\basis\Basis
 {
@@ -51,5 +52,46 @@ class StringHelper extends \nepster\basis\Basis
             $result .= $validCharacters[$index];
         }
         return $result;
+    }
+
+    /**
+     * Закрытие HTML тегов
+     * TODO: (эта функция имеет недостатки и не в состоянии справиться с некоторыми ситуациями)
+     *
+     * @param string $html
+     * @return string
+     */
+    public static function closeTags($html)
+    {
+        // Теги не требующие закрытия
+        $arrSingleTags = ['meta', 'img', 'br', 'link', 'area'];
+
+        // Получаем список тегов
+        preg_match_all('#<([a-z1-6]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
+        $openedtags = $result[1];
+
+        // Закрытие соответствующего тега
+        preg_match_all('#</([a-z]+)>#iU', $html, $result);
+        $closedtags = $result[1];
+
+        if (count($closedtags) === count($openedtags)) {
+            return $html;
+        }
+
+        // Последний открытый тег впереди
+        $openedtags = array_reverse($openedtags);
+
+        foreach ($openedtags as $key => $value) {
+            if (in_array($value, $arrSingleTags)) {
+                continue;
+            }
+            if (in_array($value, $closedtags)) {
+                unset($closedtags[array_search($value, $closedtags)]);
+            } else {
+                $html .= '</'.$value.'>';
+            }
+        }
+
+        return $html;
     }
 }
