@@ -19,11 +19,9 @@ use Yii;
  * DateTimeHelper::diffAgoPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false) Считает разницу между датами и возвращает полный период между этими датами в прошедшем времени
  * DateTimeHelper::diffAgoPeriodRound($datetime1, $datetime2 = null, $reduce = false) - Считает разницу между датами и возвращает округленный период между этими датами в прошедшем времени
  * DateTimeHelper::getDaysList() - Возвращает список дней недели
- * DateTimeHelper::getMonthsList() - Возвращает список месяцев
+ * DateTimeHelper::getMonthsList($declension = false) - Возвращает список месяцев
+ * DateTimeHelper::getTimeUnitsList() - Возвращает список единиц измерения времени
  * DateTimeHelper::getDiff($datetime1, $datetime2 = null) - Разница между датами
- *
- * //TODO вывод списка дней
- * //TODO вывод списка месяцев
  *
  */
 class DateTimeHelper extends \nepster\basis\Basis
@@ -32,37 +30,6 @@ class DateTimeHelper extends \nepster\basis\Basis
      * @var
      */
     public static $dateToTimeSeparator = ', ';
-
-    /**
-     * @var array
-     */
-    protected static $days = [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday'
-    ];
-
-    /**
-     * @var array
-     */
-    protected static $months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
 
     /**
      * Возвращает время
@@ -75,7 +42,7 @@ class DateTimeHelper extends \nepster\basis\Basis
     public static function toTime($datetime)
     {
         $formatter = self::getFormatter($datetime);
-        return $formatter->asDate($datetime, 'k:mm');
+        return $formatter->asDate($datetime, 'php:H:i');
     }
 
     /**
@@ -89,7 +56,7 @@ class DateTimeHelper extends \nepster\basis\Basis
     public static function toFullDate($datetime)
     {
         $formatter = self::getFormatter($datetime);
-        return $formatter->asDate($datetime, 'd MMMM Y');
+        return $formatter->asDate($datetime, 'php:j F Y');
     }
 
     /**
@@ -104,7 +71,7 @@ class DateTimeHelper extends \nepster\basis\Basis
     public static function toShortDate($datetime, $leadingZeros = true)
     {
         $formatter = self::getFormatter($datetime);
-        $format = $leadingZeros ? 'dd.MM.Y' : 'd.M.Y';
+        $format = $leadingZeros ? 'php:d.m.Y' : 'php:j.n.y';
         return $formatter->asDate($datetime, $format);
     }
 
@@ -124,7 +91,8 @@ class DateTimeHelper extends \nepster\basis\Basis
         }
 
         $formatter = self::getFormatter($datetime);
-        return str_replace('%', $separator, $formatter->asDate($datetime, 'd MMMM Y%k:mm'));
+
+        return str_replace('%', $separator, $formatter->asDate($datetime, 'php:d F Y%H:i'));
     }
 
     /**
@@ -143,7 +111,7 @@ class DateTimeHelper extends \nepster\basis\Basis
             $separator = self::$dateToTimeSeparator;
         }
         $formatter = self::getFormatter($datetime);
-        $format = $leadingZeros ? 'dd.MM.Y%k:mm' : 'd.M.Y%k:mm';
+        $format = $leadingZeros ? 'php:d.m.Y%H:i' : 'php:j.n.y%H:i';
         return str_replace('%', $separator, $formatter->asDate($datetime, $format));
     }
 
@@ -430,33 +398,77 @@ class DateTimeHelper extends \nepster\basis\Basis
      */
     public static function getDaysList()
     {
-        $result = [];
+        static::initI18N();
 
-        $formatter = new Formatter();
-
-        foreach (self::$days as $day) {
-            $result[] = $formatter->asDate($day, 'EEEE');
-        }
-
-        return $result;
+        return [
+            Yii::t('basis', 'Monday'),
+            Yii::t('basis', 'Tuesday'),
+            Yii::t('basis', 'Wednesday'),
+            Yii::t('basis', 'Thursday'),
+            Yii::t('basis', 'Friday'),
+            Yii::t('basis', 'Saturday'),
+            Yii::t('basis', 'Sunday'),
+        ];
     }
 
     /**
      * Возвращает список месяцев
      *
+     * @param bool $declension
      * @return array
      */
-    public static function getMonthsList()
+    public static function getMonthsList($declension = false)
     {
-        $result = [];
+        $_months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ];
 
-        $formatter = new Formatter();
+        $months = [];
 
-        foreach (self::$months as $month) {
-            $result[] = $formatter->asDate($month, 'MMMM');
+        if (!$declension) {
+            foreach ($_months as $key => $month) {
+                $months[++$key] = Yii::t('basis', $month);
+            }
+            return $months;
         }
 
-        return $result;
+        $formatter = new Formatter();
+        foreach ($_months as $key => $month) {
+            $months[++$key] = $formatter->asDate($month, 'php:F');
+        }
+
+        return $months;
+    }
+
+    /**
+     * Возвращает список единиц измерения времени
+     *
+     * @return array
+     */
+    public static function getTimeUnitsList()
+    {
+        static::initI18N();
+
+        return [
+            'week' => Yii::t('basis', 'week'),
+            'second' => Yii::t('basis', 'second'),
+            'minute' => Yii::t('basis', 'minute'),
+            'day' => Yii::t('basis', 'day'),
+            'hour' => Yii::t('basis', 'hour'),
+            'month' => Yii::t('basis', 'month'),
+            'year' => Yii::t('basis', 'year'),
+        ];
     }
 
     /**
