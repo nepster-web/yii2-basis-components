@@ -92,7 +92,7 @@ class DateTimeHelper extends \nepster\basis\Basis
 
         $formatter = self::getFormatter($datetime);
 
-        return str_replace('%', $separator, $formatter->asDate($datetime, 'php:d F Y%H:i'));
+        return str_replace('%', $separator, $formatter->asDate($datetime, 'php:j F Y%H:i'));
     }
 
     /**
