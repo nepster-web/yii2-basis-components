@@ -117,7 +117,7 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
     ```
     
     
-* ``DateTimeHelper::getDiff($datetime1, $datetime2 = null)``: Разница между датами
+* ``DateTimeHelper::getTimeUnitsList()``: Возвращает список единиц измерения времени
     <br/>Пример:
     ```
     Array
@@ -129,5 +129,29 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
         [hour] => час
         [month] => месяц
         [year] => год
+    )
+    ```
+
+
+* ``DateTimeHelper::getDiff($datetime1, $datetime2 = null)``: Разница между датами
+    <br/>Пример:
+    ```
+    DateInterval Object
+    (
+        [y] => 0
+        [m] => 2
+        [d] => 0
+        [h] => 3
+        [i] => 12
+        [s] => 10
+        [weekday] => 0
+        [weekday_behavior] => 0
+        [first_last_day_of] => 0
+        [invert] => 0
+        [days] => 61
+        [special_type] => 0
+        [special_amount] => 0
+        [have_weekday_relative] => 0
+        [have_special_relative] => 0
     )
     ```
