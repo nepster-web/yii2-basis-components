@@ -3,7 +3,7 @@
 Хелпер **StatusHelper** работает с определенными массивами статусов.
 
 
-**Пример**:
+**Результат**:
 
 ```
 use nepster\basis\helpers\StatusHelper;
@@ -40,23 +40,23 @@ use nepster\basis\helpers\StatusHelper;
 StatusHelper::getItem($statuses, $item)
 ```
 
-Исходя из вышеприведенного примера, метод вернет строку определенного цвета.
+Исходя из вышеприведенного Результата, метод вернет строку определенного цвета.
 
 
 # Все методы
 
 * ``StatusHelper::getList(array $items)``: Возвращает массив статусов в формате: ключ-значение.
-    <br/>Пример: [1 => 'Хочу снять', 2 => 'Посредник', 3 => 'Собственник', 4 => 'Агенство']
+    <br/>Результат: [1 => 'Хочу снять', 2 => 'Посредник', 3 => 'Собственник', 4 => 'Агенство']
     
     
 * ``StatusHelper::getItem(array $statuses, $item)``: Рендер элемента.
-    <br/>Пример: ```<span style="color: green">Посредник</span>```
+    <br/>Результат: ```<span style="color: green">Посредник</span>```
     
     
 * ``StatusHelper::booleanString($bool, $reverse = false, $options = [])``: Возвращает строку да или нет.
-    <br/>Пример: ```<span style="color: green">Да</span>```
+    <br/>Результат: ```<span style="color: green">Да</span>```
     
     
 * ``StatusHelper::booleanArray($reverse = false)``: Возвращает массив да или нет.
-    <br/>Пример: [0 => 'Нет', 1 => 'Да']
+    <br/>Результат: [0 => 'Нет', 1 => 'Да']
     

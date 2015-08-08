@@ -6,7 +6,7 @@
 > **ВНИМАНИЕ:** В качестве параметра $datetime можно передавать как DateTime формат так и UNIX Timestamp формат.
 
 
-**Пример:**
+**Результат:**
 
 ```
 use nepster\basis\helpers\DateTimeHelper;
@@ -21,27 +21,27 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
 # Все методы
 
 * ``DateTimeHelper::toTime($datetime)``: Возвращает время.
-    <br/>Пример: 12:59
+    <br/>Результат: 12:59
     
     
 * ``DateTimeHelper::toFullDate($datetime)``: Возвращает полную строку даты.
-    <br/>Пример: 9 мая 2015
+    <br/>Результат: 9 мая 2015
     
     
 * ``DateTimeHelper::toShortDate($datetime, $leadingZeros = true)``: Возвращает сокращенную строку даты.
-    <br/>Пример: 23.06.2015
+    <br/>Результат: 23.06.2015
     
     
 * ``DateTimeHelper::toFullDateTime($datetime, $separator = null)``: Возвращает полную строку даты и времени
-    <br/>Пример: 23 июня 2015, 12:59
+    <br/>Результат: 23 июня 2015, 12:59
     
     
 * ``DateTimeHelper::toShortDateTime($datetime, $separator = null, $leadingZeros = true)``: Возвращает сокращенную строку даты и времени
-    <br/>Пример: 23.06.2015, 12:59
+    <br/>Результат: 23.06.2015, 12:59
     
     
 * ``DateTimeHelper::diffFullPeriod($datetime1, $datetime2 = null, $reduce = false, $showSeconds = false)``: Считает разницу между датами и возвращает полный период между этими датами
-    <br/>Пример:
+    <br/>Результат:
     <br/> - 40 секунд
     <br/> - 19 минут
     <br/> - 1 час 9 минут
@@ -51,7 +51,7 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
     
     
 * ``DateTimeHelper::diffDaysPeriod($datetime1, $datetime2 = null, $showTimeUntilDay = true)``: Считает разницу между датами и возвращает период состоящий из дней между этими датами
-    <br/>Пример: 
+    <br/>Результат: 
     <br/> - 40 секунд
     <br/> - 19 минут
     <br/> - 1 час 7 минут
@@ -61,7 +61,7 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
     
     
 * ``DateTimeHelper::diffAgoPeriodRound($datetime1, $datetime2 = null, $reduce = false)``: Считает разницу между датами и возвращает округленный период между этими датами в прошедшем времени
-    <br/>Пример: 
+    <br/>Результат: 
     <br/> - 40 секунд назад
     <br/> - 1 минуту назад
     <br/> - 1 час и 7 минут назад
@@ -71,7 +71,7 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
     
     
 * ``DateTimeHelper::diffAgoPeriodRound($datetime1, $datetime2 = null, $reduce = false)``: Считает разницу между датами и возвращает округленный период между этими датами в прошедшем времени
-    <br/>Пример: 
+    <br/>Результат: 
     <br/> - 40 секунд назад
     <br/> - 1 минуту назад
     <br/> - 1 час назад
@@ -81,7 +81,7 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
 
     
 * ``DateTimeHelper::getDaysList()``: Возвращает список дней недели
-    <br/>Пример:
+    <br/>Результат:
     ```
     Array
     (
@@ -97,7 +97,7 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
     
     
 * ``DateTimeHelper::getMonthsList($declension = false)``: Возвращает список месяцев
-    <br/>Пример:
+    <br/>Результат:
     ```
     Array
     (
@@ -118,7 +118,7 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
     
     
 * ``DateTimeHelper::getTimeUnitsList()``: Возвращает список единиц измерения времени
-    <br/>Пример:
+    <br/>Результат:
     ```
     Array
     (
@@ -134,7 +134,7 @@ DateTimeHelper::diffFullPeriod(1433260571, 1433270782) // 2 часа 50 мину
 
 
 * ``DateTimeHelper::getDiff($datetime1, $datetime2 = null)``: Разница между датами
-    <br/>Пример:
+    <br/>Результат:
     ```
     DateInterval Object
     (
