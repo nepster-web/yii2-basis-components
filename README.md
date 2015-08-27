@@ -2,9 +2,6 @@
 
 Набор различных расширений, хелперов и компонентов, которые облегчают реализацию определенных задач.
 
-> **NOTE:** Пакет находится в стадии разработки.
-```Не рекомендован к использованию```
-
 
 ## Установка
 
@@ -13,13 +10,13 @@
 Запустите в консоле
 
 ```
-php composer.phar require --prefer-dist nepster-web/yii2-basis-components "dev-master"
+php composer.phar require --prefer-dist nepster-web/yii2-basis-components "*"
 ```
 
 или добавьте
 
 ```
-"nepster-web/yii2-basis-components": "dev-master"
+"nepster-web/yii2-basis-components": "*"
 ```
 
 в файл `composer.json` в секцию require.
