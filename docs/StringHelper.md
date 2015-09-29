@@ -22,3 +22,7 @@ StringHelper::formatBytes(10000000) // 9.54 MB
 
 * ``StringHelper::closeTags($html)``: Закрытие HTML тегов.
     <br/>Результат: <p>Hello World</p>
+
+
+* ``StringHelper::ucfirst('hello world')``: Первая буква - заглавная.
+    <br/>Результат: <p>Hello world</p>

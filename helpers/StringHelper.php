@@ -10,6 +10,7 @@ use Yii;
  * StringHelper::formatBytes($bytes, $precision = 2) - Форматирует и конвертирует кол-во байт, возвращает строку
  * StringHelper::generateRandomString($length = 8, $allowUppercase = true) - Генерация случайной строки
  * StringHelper::closeTags($html) - Закрытие HTML тегов
+ * StringHelper::ucfirst($string, $e = 'utf-8') - Первая буква - заглавная
  */
 class StringHelper extends \nepster\basis\Basis
 {
@@ -93,5 +94,25 @@ class StringHelper extends \nepster\basis\Basis
         }
 
         return $html;
+    }
+
+    /**
+     * Первая буква - заглавная
+     *
+     * @param $string
+     * @param string $e
+     * @return string
+     */
+    public static function ucfirst($string, $e = 'utf-8')
+    {
+        if (function_exists('mb_strtoupper') && function_exists('mb_substr') && !empty($string)) {
+            $string = mb_strtolower($string, $e);
+            $upper = mb_strtoupper($string, $e);
+            preg_match('#(.)#us', $upper, $matches);
+            $string = $matches[1] . mb_substr($string, 1, mb_strlen($string, $e), $e);
+        } else {
+            $string = ucfirst($string);
+        }
+        return $string;
     }
 }
