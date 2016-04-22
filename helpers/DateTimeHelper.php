@@ -265,6 +265,8 @@ class DateTimeHelper extends \nepster\basis\Basis
         $interval = self::getDiff($datetime1, $datetime2);
 
         $result = [];
+        
+        $interval->s = $interval->s ? $interval->s : 1;
 
         if ($interval->y > 0) {
             if ($reduce) {
